@@ -1,0 +1,577 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Yasmine Amor | AI Engineer & Data Scientist</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --accent: #06b6d4;
+            --pink: #ec4899;
+            --bg: #050918;
+            --card-bg: rgba(13, 27, 62, 0.55);
+            --text: #e2e8f0;
+            --glow-purple: rgba(124, 58, 237, 0.6);
+            --glow-cyan: rgba(6, 182, 212, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* ── CANVAS STARFIELD ── */
+        #starfield {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── NEBULA LAYERS ── */
+        .nebula {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .nebula-1 { width: 600px; height: 600px; background: rgba(124,58,237,0.18); top: -150px; right: -100px; }
+        .nebula-2 { width: 500px; height: 500px; background: rgba(6,182,212,0.12); bottom: 10%; left: -100px; }
+        .nebula-3 { width: 400px; height: 400px; background: rgba(236,72,153,0.10); top: 40%; right: 10%; }
+
+        /* ── SHOOTING STARS ── */
+        .shooting-stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+        .shooting-star {
+            position: absolute;
+            width: 150px; height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0), white);
+            border-radius: 2px;
+            opacity: 0;
+            animation: shoot 6s linear infinite;
+        }
+        .shooting-star:nth-child(1) { top: 15%; left: 20%; animation-delay: 0s; transform: rotate(-30deg); }
+        .shooting-star:nth-child(2) { top: 30%; left: 60%; animation-delay: 2s; transform: rotate(-25deg); }
+        .shooting-star:nth-child(3) { top: 10%; left: 80%; animation-delay: 4s; transform: rotate(-35deg); }
+        .shooting-star:nth-child(4) { top: 50%; left: 10%; animation-delay: 1s; transform: rotate(-20deg); }
+        .shooting-star:nth-child(5) { top: 5%;  left: 45%; animation-delay: 3s; transform: rotate(-30deg); }
+
+        @keyframes shoot {
+            0%   { opacity: 0; transform: translateX(0) rotate(-30deg); }
+            10%  { opacity: 1; }
+            60%  { opacity: 0; transform: translateX(400px) rotate(-30deg); }
+            100% { opacity: 0; }
+        }
+
+        /* ── NAVBAR ── */
+        #nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 65px;
+            background: rgba(5, 9, 24, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: flex; justify-content: flex-end; align-items: center; padding: 0 5%;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.3);
+        }
+        #nav ul { display: flex; list-style: none; align-items: center; }
+        #nav ul.links li a {
+            color: #94a3b8; text-decoration: none; padding: 0 18px;
+            font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px;
+            transition: color 0.3s;
+        }
+        #nav ul.links li a:hover { color: #fff; }
+        #nav ul.links li.active a {
+            color: var(--accent);
+            text-shadow: 0 0 12px var(--glow-cyan);
+        }
+        #nav ul.icons { margin-left: 20px; border-left: 1px solid rgba(124,58,237,0.3); padding-left: 20px; }
+        #nav ul.icons li a { font-size: 1.1rem; margin-left: 15px; color: #64748b; transition: color 0.3s, text-shadow 0.3s; }
+        #nav ul.icons li a:hover { color: var(--accent); text-shadow: 0 0 10px var(--glow-cyan); }
+
+        /* ── WRAPPER ── */
+        #wrapper { position: relative; z-index: 1; padding-top: 65px; }
+
+        /* ── HERO SECTION ── */
+        #hero {
+            position: relative;
+            min-height: 92vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        /* Planet */
+        .planet {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 480px; height: 480px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%,
+                #1a6b8a 0%,
+                #0d3d5e 35%,
+                #071c33 60%,
+                #020d1a 100%
+            );
+            box-shadow:
+                0 0 80px rgba(6,182,212,0.4),
+                0 0 160px rgba(6,182,212,0.15),
+                0 0 40px rgba(124,58,237,0.3),
+                inset 0 0 80px rgba(99,102,241,0.2);
+            animation: floatPlanet 8s ease-in-out infinite;
+            z-index: 0;
+        }
+        /* Planet rings */
+        .planet::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotateX(75deg);
+            width: 680px; height: 680px;
+            border-radius: 50%;
+            border: 2px solid rgba(6,182,212,0.25);
+            box-shadow: 0 0 20px rgba(6,182,212,0.15);
+        }
+        .planet::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotateX(75deg);
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            border: 6px solid rgba(124,58,237,0.15);
+        }
+        @keyframes floatPlanet {
+            0%, 100% { transform: translateY(-50%) translateY(0); }
+            50%       { transform: translateY(-50%) translateY(-20px); }
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatOrb 5s ease-in-out infinite;
+        }
+        .orb-1 { width: 18px; height: 18px; background: radial-gradient(circle, #ec4899, rgba(236,72,153,0)); bottom: 25%; left: 8%;  animation-delay: 0s;   box-shadow: 0 0 20px #ec4899; }
+        .orb-2 { width: 12px; height: 12px; background: radial-gradient(circle, #7c3aed, rgba(124,58,237,0)); bottom: 35%; left: 15%; animation-delay: 1.5s; box-shadow: 0 0 15px #7c3aed; }
+        .orb-3 { width: 20px; height: 20px; background: radial-gradient(circle, #06b6d4, rgba(6,182,212,0));   bottom: 20%; right: 15%; animation-delay: 0.8s; box-shadow: 0 0 20px #06b6d4; }
+        .orb-4 { width: 10px; height: 10px; background: radial-gradient(circle, #ec4899, rgba(236,72,153,0)); top: 30%;    right: 8%;  animation-delay: 2s;   box-shadow: 0 0 12px #ec4899; }
+        .orb-5 { width: 14px; height: 14px; background: radial-gradient(circle, #7c3aed, rgba(124,58,237,0)); top: 20%;    left: 25%;  animation-delay: 3s;   box-shadow: 0 0 16px #7c3aed; }
+        @keyframes floatOrb {
+            0%, 100% { transform: translateY(0)    scale(1); }
+            50%       { transform: translateY(-15px) scale(1.15); }
+        }
+
+        /* Hero text */
+        .hero-content {
+            position: relative; z-index: 2;
+            text-align: left;
+            max-width: 600px;
+            margin-left: 8%;
+        }
+        .hero-tag {
+            display: inline-block;
+            font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 3px;
+            color: var(--accent);
+            border: 1px solid rgba(6,182,212,0.4);
+            padding: 6px 16px; border-radius: 20px;
+            margin-bottom: 1.5rem;
+            background: rgba(6,182,212,0.08);
+            text-shadow: 0 0 10px var(--glow-cyan);
+        }
+        .hero-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 5rem; font-weight: 900;
+            line-height: 1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 50%, #06b6d4 100%);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(124,58,237,0.5));
+        }
+        .hero-title {
+            font-size: 1.2rem; color: #94a3b8; margin-bottom: 2rem; font-weight: 300; line-height: 1.7;
+        }
+        .hero-title span { color: var(--accent); font-weight: 500; }
+        .hero-cta {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: linear-gradient(135deg, var(--primary), #4f46e5);
+            color: white; padding: 14px 32px; border-radius: 50px;
+            text-decoration: none; font-weight: 700; font-size: 0.9rem;
+            box-shadow: 0 0 30px rgba(124,58,237,0.5);
+            transition: 0.3s;
+        }
+        .hero-cta:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(124,58,237,0.7); }
+
+        /* ── MAIN CONTENT ── */
+        #main {
+            max-width: 1100px; margin: 0 auto;
+            padding: 2rem 2rem 4rem;
+            position: relative; z-index: 1;
+        }
+
+        /* Section titles */
+        .section-title {
+            text-align: center; margin-bottom: 3rem;
+        }
+        .section-title h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem; font-weight: 700;
+            background: linear-gradient(135deg, #c4b5fd, #06b6d4);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .section-title p { color: #64748b; font-size: 0.95rem; }
+        .section-divider {
+            width: 60px; height: 3px; margin: 1rem auto 0;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        /* ── GRID ── */
+        .milestone-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+
+        /* ── SPACE CARD ── */
+        .space-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(124,58,237,0.25);
+            border-radius: 16px; overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            backdrop-filter: blur(12px);
+        }
+        .space-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 40px rgba(124,58,237,0.3), 0 20px 40px rgba(0,0,0,0.5);
+            border-color: rgba(124,58,237,0.6);
+        }
+        .space-card img { width: 100%; height: 175px; object-fit: cover; opacity: 0.8; transition: opacity 0.3s; display: block; }
+        .space-card:hover img { opacity: 1; }
+        .card-content { padding: 1.4rem; }
+        .card-tag { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; display: block; }
+        .card-content h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: #f1f5f9; }
+        .card-content p { font-size: 0.88rem; color: #94a3b8; line-height: 1.6; }
+
+        /* Distinction cards (no image) */
+        .space-card.no-img .card-content { padding: 2rem; }
+
+        /* ── FOOTER ── */
+        #footer {
+            position: relative; z-index: 1;
+            text-align: center; padding: 4rem 0;
+            border-top: 1px solid rgba(124,58,237,0.2);
+        }
+        #footer h3 { color: var(--accent); font-size: 1.1rem; margin-bottom: 0.5rem; text-shadow: 0 0 15px var(--glow-cyan); }
+        #footer a { color: white; font-weight: 600; }
+        .footer-icons { margin-top: 20px; display: flex; justify-content: center; gap: 20px; }
+        .footer-icons a { color: #475569; font-size: 1.5rem; transition: 0.3s; }
+        .footer-icons a:hover { color: var(--accent); text-shadow: 0 0 15px var(--glow-cyan); }
+
+        #navPanelToggle, #navPanel { display: none !important; }
+
+        @media (max-width: 900px) {
+            .planet { width: 280px; height: 280px; opacity: 0.5; right: -5%; }
+            .hero-content { margin-left: 0; text-align: center; }
+            .hero-name { font-size: 3rem; }
+        }
+        @media (max-width: 600px) {
+            #nav { justify-content: center; padding: 0; }
+            #nav ul.icons { display: none; }
+            .hero-name { font-size: 2.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Starfield canvas -->
+<canvas id="starfield"></canvas>
+
+<!-- Nebula overlays -->
+<div class="nebula nebula-1"></div>
+<div class="nebula nebula-2"></div>
+<div class="nebula nebula-3"></div>
+
+<!-- Shooting stars -->
+<div class="shooting-stars">
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+</div>
+
+<div id="wrapper">
+
+    <!-- Navbar -->
+    <nav id="nav">
+        <ul class="links">
+            <li class="active"><a href="index.html">Bio</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="cv.html">Resume</a></li>
+            <li><a href="certif.html">Certificates</a></li>
+        </ul>
+        <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/yasmine-amor1/" class="fa-brands fa-linkedin"></a></li>
+            <li><a href="https://github.com/YASMINE12AMOR" class="fa-brands fa-github"></a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section id="hero">
+        <div class="planet"></div>
+
+        <!-- Floating orbs -->
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
+
+        <div class="hero-content">
+            <span class="hero-tag">AI Engineer &amp; Data Scientist</span>
+            <h1 class="hero-name">YASMINE<br>AMOR</h1>
+            <p class="hero-title">
+                Specialized in <span>LLM</span>, <span>Agentic AI</span> &amp; <span>Machine Learning</span>.<br>
+                Building intelligent systems that bridge research and real-world impact.
+            </p>
+            <a href="projects.html" class="hero-cta">
+                <i class="fas fa-rocket"></i> Explore My Work
+            </a>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <div id="main">
+
+        <!-- Bio -->
+        <section style="display: flex; gap: 2.5rem; align-items: center; flex-wrap: wrap; margin-bottom: 5rem; padding: 2.5rem; background: var(--card-bg); border: 1px solid rgba(124,58,237,0.2); border-radius: 20px; backdrop-filter: blur(12px);">
+            <img src="images/yasmine_photo.jpeg" alt="Yasmine"
+                style="width: 170px; height: 170px; object-fit: cover; border-radius: 50%;
+                       border: 3px solid var(--primary);
+                       box-shadow: 0 0 30px rgba(124,58,237,0.5), 0 0 60px rgba(124,58,237,0.2);">
+            <div style="flex: 1; min-width: 280px;">
+                <h2 style="font-family:'Poppins'; margin-bottom:0.8rem; color:#c4b5fd;">About Me</h2>
+                <p style="color:#94a3b8; line-height:1.8; font-size:0.97rem;">
+                    AI Engineer specialized in artificial intelligence and machine learning, with hands-on experience developing and integrating AI solutions (LLM, agents) in real-world applications.
+                    Currently pursuing a <strong style="color:#e2e8f0;">Master's in Big Data & AI</strong> at Sup De Vinci, Rennes.
+                    Available from <strong style="color:var(--accent);">October 1, 2026</strong>.
+                </p>
+            </div>
+        </section>
+
+        <!-- Professional Journey -->
+        <section style="margin-bottom: 5rem;">
+            <div class="section-title">
+                <h2>Professional Journey</h2>
+                <p>Key milestones in my AI engineering career</p>
+                <div class="section-divider"></div>
+            </div>
+            <div class="milestone-grid">
+
+                <div class="space-card" style="border-top: 3px solid #10b981;">
+                    <img src="images/groupe_rocher.png" alt="Groupe Rocher" style="object-fit:contain; background:#fff; padding:20px;">
+                    <div class="card-content">
+                        <span class="card-tag" style="color:#10b981;">Current — Groupe Rocher</span>
+                        <h3>ML &amp; DevOps Apprenticeship</h3>
+                        <p>Sales forecasting for new products and agentic workflows on Dify with CI/CD pipelines and Docker deployments.</p>
+                    </div>
+                </div>
+
+                <div class="space-card" style="border-top: 3px solid #f59e0b;">
+                    <img src="images/graduation_day.jpg" alt="Graduation">
+                    <div class="card-content">
+                        <span class="card-tag" style="color:#f59e0b;">December 2025</span>
+                        <h3>Software Engineer Diploma</h3>
+                        <p>Graduated as a Software Engineer, specializing in Data Science & AI at <strong style="color:#e2e8f0;">ESPRIT</strong>, Tunis.</p>
+                    </div>
+                </div>
+
+                <div class="space-card" style="border-top: 3px solid var(--primary);">
+                    <img src="images/orange_internship.jpg" alt="Orange Innovation">
+                    <div class="card-content">
+                        <span class="card-tag" style="color:var(--primary);">March – September 2025</span>
+                        <h3>AI Internship @ Orange Innovation</h3>
+                        <p>Built an LLM-based medical phone agent automating patient interactions and appointment scheduling at <strong style="color:#e2e8f0;">88% accuracy</strong>.</p>
+                    </div>
+                </div>
+
+
+<div class="space-card" style="border-top: 3px solid var(--pink);">
+                    <img src="images/bets_second_team.jpg" alt="Talan Award">
+                    <div class="card-content">
+                        <span class="card-tag" style="color:var(--pink);">July – August 2024</span>
+                        <h3>🏆 2nd Prize — Best Project<br><span style="font-size:0.85rem; color:#94a3b8; font-weight:500;">Talan Summer Internship</span></h3>
+                        <p>ML + RAG pipeline for iPSC stem cell health evaluation and future differentiation with <strong style="color:#e2e8f0;">90% prediction accuracy</strong>.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Distinctions -->
+        <section style="margin-bottom: 5rem;">
+            <div class="section-title">
+                <h2>Distinctions &amp; Awards</h2>
+                <p>Recognition across competitions and internships</p>
+                <div class="section-divider"></div>
+            </div>
+            <div class="milestone-grid">
+
+                <div class="space-card">
+                    <img src="images/best_prize_summer.jpg" alt="2nd Prize Talan">
+                    <div class="card-content">
+                        <span class="card-tag" style="color:var(--pink);">Talan — 2024</span>
+                        <h3>2nd Prize — Best Project</h3>
+                        <p style="color:#94a3b8;">Stem cell therapy ML pipeline combining RAG and predictive modeling at <strong style="color:#e2e8f0;">90% accuracy</strong>.</p>
+                        <a href="images/succ/article_stem_cells.pdf" target="_blank" style="margin-top:1rem; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.82rem; display:inline-flex; align-items:center; gap:7px; transition:text-shadow 0.3s;" onmouseover="this.style.textShadow='0 0 12px rgba(6,182,212,0.7)'" onmouseout="this.style.textShadow=''">
+                            <i class="fas fa-file-alt"></i> Read Scientific Article
+                        </a>
+                    </div>
+                </div>
+
+                <div class="space-card no-img">
+                    <div class="card-content">
+                        <span class="card-tag" style="color:var(--accent);">Code to Cure</span>
+                        <h3>18th / 37 — Computer Vision</h3>
+                        <p style="color:#94a3b8;">Ranked <strong style="color:#e2e8f0;">18th out of 37 teams</strong> in the Code to Cure Computer Vision competition. Developed a <strong style="color:#e2e8f0;">brain tumor classification model</strong> achieving <strong style="color:#e2e8f0;">85% accuracy</strong> on medical imaging data.</p>
+                    </div>
+                </div>
+
+                <div class="space-card no-img">
+                    <div class="card-content">
+                        <span class="card-tag" style="color:var(--primary);">Sync Intern's</span>
+                        <h3>Letter of Recommendation</h3>
+                        <p style="color:#94a3b8;">Official letter of recommendation recognizing outstanding performance during internship.</p>
+                        <a href="images/sync_interns_recomm.png" target="_blank" style="margin-top:1rem; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.82rem; display:inline-flex; align-items:center; gap:7px; transition:text-shadow 0.3s;" onmouseover="this.style.textShadow='0 0 12px rgba(6,182,212,0.7)'" onmouseout="this.style.textShadow=''">
+                            <i class="fas fa-file-alt"></i> View Letter
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Interests & Hobbies -->
+        <section>
+            <div class="section-title">
+                <h2>Interests &amp; Hobbies</h2>
+                <p>Beyond the code — creativity, exploration &amp; community</p>
+                <div class="section-divider"></div>
+            </div>
+            <div class="milestone-grid">
+
+                <div class="space-card">
+                    <img src="images/tigre_peinture.jpg" alt="Oil Painting" style="height:200px; object-fit:cover;">
+                    <div class="card-content">
+                        <span class="card-tag" style="color:var(--pink);">Fine Arts</span>
+                        <h3>🎨 Oil Painting</h3>
+                        <p style="color:#94a3b8;">Self-taught oil painter — exploring color, texture, and visual storytelling on canvas. A meditative counterpart to the precision of engineering.</p>
+                    </div>
+                </div>
+
+                <div class="space-card">
+                    <img src="images/deep_flow.jpg" alt="Deep Flow AI Club" style="height:200px; object-fit:cover;">
+                    <div class="card-content">
+                        <span class="card-tag" style="color:var(--accent);">Deep Flow Club</span>
+                        <h3>🤖 AI Club — Graphic Designer</h3>
+                        <p style="color:#94a3b8;">Lead graphic designer for the Deep Flow AI club — creating visual identities, event posters, and communication assets for the community.</p>
+                    </div>
+                </div>
+
+                <div class="space-card">
+                    <img src="images/act_in_space_photo.jpg" alt="Act in Space" style="height:200px; object-fit:cover;">
+                    <div class="card-content">
+                        <span class="card-tag" style="color:var(--primary);">Act in Space — ESA · CNES · NASA</span>
+                        <h3>🚀 Space Innovation Hackathon</h3>
+                        <p style="color:#94a3b8;">Participated in the international space innovation challenge — designing a tech solution leveraging space data to address real-world problems.</p>
+                        <a href="images/AIS2026 - Certificate Y AMOR.png" target="_blank" style="margin-top:1rem; color:var(--accent); text-decoration:none; font-weight:600; font-size:0.82rem; display:inline-flex; align-items:center; gap:7px; transition:text-shadow 0.3s;" onmouseover="this.style.textShadow='0 0 12px rgba(6,182,212,0.7)'" onmouseout="this.style.textShadow=''">
+                            <i class="fas fa-certificate"></i> View Certificate
+                        </a>
+                    </div>
+                </div>
+
+                <div class="space-card">
+                    <img src="images/hackeurope_photo.png" alt="HackEurope" style="height:200px; object-fit:cover;">
+                    <div class="card-content">
+                        <span class="card-tag" style="color:#f59e0b;">HackEurope — CentraleSupélec</span>
+                        <h3>⚡ 48h Hackathon</h3>
+                        <p style="color:#94a3b8;">Built <strong style="color:#e2e8f0;">FlashApply</strong> — a multi-agent CV customization platform achieving 60% job match rate — competing among top European engineering schools.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <h3>Let's Build Something Intelligent</h3>
+        <p style="color:#64748b; margin-top:0.4rem;">Reach out: <a href="mailto:yasmine.amor120@gmail.com">yasmine.amor120@gmail.com</a></p>
+        <div class="footer-icons">
+            <a href="https://www.linkedin.com/in/yasmine-amor1/"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/YASMINE12AMOR"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </footer>
+
+</div><!-- end #wrapper -->
+
+<script>
+// ── STARFIELD ──
+(function() {
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resize() {
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initStars();
+    }
+
+    function initStars() {
+        stars = [];
+        for (let i = 0; i < 220; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.4 + 0.2,
+                alpha: Math.random(),
+                speed: Math.random() * 0.008 + 0.002,
+                dir: Math.random() > 0.5 ? 1 : -1
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(s => {
+            s.alpha += s.speed * s.dir;
+            if (s.alpha >= 1 || s.alpha <= 0) s.dir *= -1;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+            ctx.fill();
+        });
+        requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+})();
+</script>
+
+</body>
+</html>

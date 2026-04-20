@@ -1,0 +1,446 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Resume | Yasmine Amor</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --accent: #06b6d4;
+            --pink: #ec4899;
+            --bg: #050918;
+            --card-bg: rgba(13, 27, 62, 0.55);
+            --text: #e2e8f0;
+            --glow-purple: rgba(124, 58, 237, 0.6);
+            --glow-cyan: rgba(6, 182, 212, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+        #starfield { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+        .nebula { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+        .nebula-1 { width: 500px; height: 500px; background: rgba(124,58,237,0.14); top: -100px; right: -80px; }
+        .nebula-2 { width: 400px; height: 400px; background: rgba(6,182,212,0.09); bottom: 0; left: -80px; }
+
+        .shooting-stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+        .shooting-star { position: absolute; width: 150px; height: 2px; background: linear-gradient(90deg, rgba(255,255,255,0), white); border-radius: 2px; opacity: 0; animation: shoot 6s linear infinite; }
+        .shooting-star:nth-child(1) { top: 8%;  left: 20%; animation-delay: 0s;   transform: rotate(-30deg); }
+        .shooting-star:nth-child(2) { top: 20%; left: 65%; animation-delay: 3s;   transform: rotate(-25deg); }
+        @keyframes shoot {
+            0%   { opacity: 0; transform: translateX(0) rotate(-30deg); }
+            10%  { opacity: 1; }
+            60%  { opacity: 0; transform: translateX(400px) rotate(-30deg); }
+            100% { opacity: 0; }
+        }
+
+        /* ── NAVBAR ── */
+        #nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 65px;
+            background: rgba(5,9,24,0.85); backdrop-filter: blur(20px);
+            z-index: 9999; display: flex; justify-content: flex-end; align-items: center; padding: 0 5%;
+            border-bottom: 1px solid rgba(124,58,237,0.3);
+        }
+        #nav ul { display: flex; list-style: none; align-items: center; }
+        #nav ul.links li a { color: #94a3b8; text-decoration: none; padding: 0 18px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.3s; }
+        #nav ul.links li a:hover { color: #fff; }
+        #nav ul.links li.active a { color: var(--accent); text-shadow: 0 0 12px var(--glow-cyan); }
+        #nav ul.icons { margin-left: 20px; border-left: 1px solid rgba(124,58,237,0.3); padding-left: 20px; }
+        #nav ul.icons li a { font-size: 1.1rem; margin-left: 15px; color: #64748b; transition: color 0.3s; }
+        #nav ul.icons li a:hover { color: var(--accent); }
+
+        #wrapper { position: relative; z-index: 1; padding-top: 65px; }
+
+        /* ── PAGE HEADER ── */
+        .page-header { text-align: center; padding: 4rem 20px 3rem; position: relative; overflow: hidden; }
+        .page-header::before {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+            width: 600px; height: 300px;
+            background: radial-gradient(ellipse, rgba(124,58,237,0.13), transparent 70%);
+            pointer-events: none;
+        }
+        .page-header h1 {
+            font-family: 'Poppins'; font-size: 3.2rem; font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 50%, #06b6d4 100%);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 0.8rem;
+        }
+        .page-header p { color: #64748b; font-size: 1rem; }
+        .header-line { width: 80px; height: 3px; margin: 1rem auto 0; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 2px; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px 5rem; }
+
+        /* ── SECTION ── */
+        .resume-section { margin-bottom: 4rem; }
+        .section-header {
+            display: flex; align-items: center; gap: 14px; margin-bottom: 2rem;
+            padding-bottom: 12px; border-bottom: 1px solid rgba(124,58,237,0.25);
+        }
+        .section-header i { color: var(--accent); font-size: 1.4rem; text-shadow: 0 0 12px var(--glow-cyan); }
+        .section-header h2 { font-family: 'Poppins'; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #c4b5fd; }
+
+        /* ── TIMELINE ── */
+        .timeline-item {
+            position: relative; padding-left: 35px;
+            border-left: 2px solid rgba(124,58,237,0.4);
+            margin-bottom: 2.8rem;
+        }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -9px; top: 4px;
+            width: 16px; height: 16px;
+            background: var(--bg); border: 2px solid var(--primary);
+            border-radius: 50%; box-shadow: 0 0 12px rgba(124,58,237,0.7);
+        }
+        .timeline-date { color: var(--accent); font-size: 0.82rem; font-weight: 700; margin-bottom: 6px; display: block; text-shadow: 0 0 8px var(--glow-cyan); }
+        .timeline-title { font-family: 'Poppins'; font-weight: 700; font-size: 1.2rem; margin: 0 0 4px; color: #f1f5f9; }
+        .timeline-org { color: #a78bfa; font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; display: block; }
+        .timeline-desc { font-size: 0.92rem; line-height: 1.75; color: #94a3b8; }
+        .timeline-desc li { margin-bottom: 7px; }
+        .timeline-desc strong { color: #e2e8f0; }
+
+        /* ── SKILLS ── */
+        .skill-group { margin-bottom: 1.8rem; }
+        .skill-group h4 { color: #64748b; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+        .skills-container { display: flex; flex-wrap: wrap; gap: 8px; }
+        .skill-badge {
+            background: rgba(124,58,237,0.1);
+            color: #a78bfa;
+            border: 1px solid rgba(124,58,237,0.25);
+            padding: 5px 13px; border-radius: 20px;
+            font-size: 0.78rem; font-weight: 500;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+        .skill-badge:hover { border-color: rgba(124,58,237,0.6); box-shadow: 0 0 10px rgba(124,58,237,0.3); }
+
+        /* ── PDF CARD ── */
+        .pdf-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(124,58,237,0.3);
+            border-radius: 20px; padding: 40px; text-align: center;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 40px rgba(124,58,237,0.1);
+        }
+        .pdf-card h2 { font-family: 'Poppins'; color: #c4b5fd; margin-bottom: 0.6rem; }
+        .download-btn {
+            display: inline-flex; align-items: center; gap: 12px;
+            background: linear-gradient(135deg, var(--primary), #4f46e5);
+            color: white; padding: 14px 32px; border-radius: 50px;
+            text-decoration: none; font-weight: 700; margin-bottom: 2rem;
+            box-shadow: 0 0 30px rgba(124,58,237,0.5); transition: 0.3s;
+        }
+        .download-btn:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(124,58,237,0.7); }
+        .preview-window { width: 100%; height: 600px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(124,58,237,0.2); }
+
+        /* ── FOOTER ── */
+        #footer { position: relative; z-index: 1; text-align: center; padding: 4rem 0; border-top: 1px solid rgba(124,58,237,0.2); }
+        #footer p { color: #475569; font-size: 0.85rem; }
+
+        #navPanelToggle, #navPanel { display: none !important; }
+
+        @media (max-width: 600px) {
+            #nav { justify-content: center; padding: 0; }
+            #nav ul.icons { display: none; }
+            .page-header h1 { font-size: 2.2rem; }
+            .timeline-title { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div class="nebula nebula-1"></div>
+<div class="nebula nebula-2"></div>
+<div class="shooting-stars">
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+</div>
+
+<div id="wrapper">
+
+    <nav id="nav">
+        <ul class="links">
+            <li><a href="index.html">Bio</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li class="active"><a href="cv.html">Resume</a></li>
+            <li><a href="certif.html">Certificates</a></li>
+        </ul>
+        <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/yasmine-amor1/" class="fa-brands fa-linkedin"></a></li>
+            <li><a href="https://github.com/YASMINE12AMOR" class="fa-brands fa-github"></a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header">
+        <h1>Resume</h1>
+        <p>Experience, education, and technical expertise</p>
+        <div class="header-line"></div>
+    </div>
+
+    <div class="container">
+
+        <!-- Skills -->
+        <section class="resume-section">
+            <div class="section-header">
+                <i class="fas fa-layer-group"></i>
+                <h2>Technical Stack</h2>
+            </div>
+
+            <div class="skill-group">
+                <h4>🧠 AI &amp; Data Science</h4>
+                <div class="skills-container">
+                    <span class="skill-badge">Machine Learning</span>
+                    <span class="skill-badge">Deep Learning</span>
+                    <span class="skill-badge">NLP</span>
+                    <span class="skill-badge">LLM</span>
+                    <span class="skill-badge">RAG</span>
+                    <span class="skill-badge">AI Agents / Agentic Systems</span>
+                    <span class="skill-badge">Prompt Engineering</span>
+                    <span class="skill-badge">PyTorch</span>
+                    <span class="skill-badge">TensorFlow</span>
+                    <span class="skill-badge">Computer Vision</span>
+                </div>
+            </div>
+
+            <div class="skill-group">
+                <h4>🧰 Frameworks &amp; Tools</h4>
+                <div class="skills-container">
+                    <span class="skill-badge">FastAPI</span>
+                    <span class="skill-badge">Flask</span>
+                    <span class="skill-badge">LangChain</span>
+                    <span class="skill-badge">APIs REST</span>
+                    <span class="skill-badge">Hugging Face</span>
+                    <span class="skill-badge">OpenAI API</span>
+                    <span class="skill-badge">Streamlit</span>
+                    <span class="skill-badge">NoSQL</span>
+                    <span class="skill-badge">SQL</span>
+                    <span class="skill-badge">BigQuery</span>
+                    <span class="skill-badge">Time Series</span>
+                    <span class="skill-badge">Airflow</span>
+                    <span class="skill-badge">Kedro</span>
+                </div>
+            </div>
+
+            <div class="skill-group">
+                <h4>🤖 AI Automation &amp; Agentic Tools</h4>
+                <div class="skills-container">
+                    <span class="skill-badge" style="background:rgba(236,72,153,0.08); color:#f9a8d4; border-color:rgba(236,72,153,0.25);">Claude</span>
+                    <span class="skill-badge" style="background:rgba(236,72,153,0.08); color:#f9a8d4; border-color:rgba(236,72,153,0.25);">OpenAI Codex</span>
+                    <span class="skill-badge" style="background:rgba(236,72,153,0.08); color:#f9a8d4; border-color:rgba(236,72,153,0.25);">Dify</span>
+                    <span class="skill-badge" style="background:rgba(236,72,153,0.08); color:#f9a8d4; border-color:rgba(236,72,153,0.25);">Smartly.ai</span>
+                </div>
+            </div>
+
+            <div class="skill-group">
+                <h4>☁️ Cloud Services</h4>
+                <div class="skills-container">
+                    <span class="skill-badge" style="background:rgba(6,182,212,0.08); color:#67e8f9; border-color:rgba(6,182,212,0.25);">GCP</span>
+                    <span class="skill-badge" style="background:rgba(6,182,212,0.08); color:#67e8f9; border-color:rgba(6,182,212,0.25);">Vertex AI</span>
+                    <span class="skill-badge" style="background:rgba(6,182,212,0.08); color:#67e8f9; border-color:rgba(6,182,212,0.25);">BigQuery</span>
+                    <span class="skill-badge" style="background:rgba(6,182,212,0.08); color:#67e8f9; border-color:rgba(6,182,212,0.25);">Azure</span>
+                    <span class="skill-badge" style="background:rgba(6,182,212,0.08); color:#67e8f9; border-color:rgba(6,182,212,0.25);">AWS</span>
+                    <span class="skill-badge" style="background:rgba(6,182,212,0.08); color:#67e8f9; border-color:rgba(6,182,212,0.25);">MinIO</span>
+                </div>
+            </div>
+
+            <div class="skill-group">
+                <h4>🚀 DevOps &amp; CI/CD</h4>
+                <div class="skills-container">
+                    <span class="skill-badge">GitLab</span>
+                    <span class="skill-badge">GitHub</span>
+                    <span class="skill-badge">Docker</span>
+                    <span class="skill-badge">Linux</span>
+                    <span class="skill-badge">CI/CD Pipelines</span>
+                </div>
+            </div>
+
+            <div class="skill-group">
+                <h4>💻 Programming Languages</h4>
+                <div class="skills-container">
+                    <span class="skill-badge">Python</span>
+                    <span class="skill-badge">JavaScript</span>
+                    <span class="skill-badge">Java</span>
+                    <span class="skill-badge">R</span>
+                    <span class="skill-badge">C</span>
+                    <span class="skill-badge">C#</span>
+                </div>
+            </div>
+
+            <div class="skill-group">
+                <h4>🤝 Soft Skills</h4>
+                <div class="skills-container">
+                    <span class="skill-badge" style="background:rgba(6,182,212,0.1); color:#67e8f9; border-color:rgba(6,182,212,0.25);">Analytical Thinking</span>
+                    <span class="skill-badge" style="background:rgba(6,182,212,0.1); color:#67e8f9; border-color:rgba(6,182,212,0.25);">Team Work</span>
+                    <span class="skill-badge" style="background:rgba(6,182,212,0.1); color:#67e8f9; border-color:rgba(6,182,212,0.25);">Innovation Mindset</span>
+                    <span class="skill-badge" style="background:rgba(6,182,212,0.1); color:#67e8f9; border-color:rgba(6,182,212,0.25);">Autonomy</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section class="resume-section">
+            <div class="section-header">
+                <i class="fas fa-terminal"></i>
+                <h2>Professional Experience</h2>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-date">September 2025 — Present</span>
+                <h3 class="timeline-title">ML &amp; DevOps Apprenticeship</h3>
+                <span class="timeline-org"><img src="images/groupe_rocher.png" style="height:16px; vertical-align:middle; margin-right:7px; border-radius:3px; object-fit:contain;">Groupe Rocher — Rennes, France</span>
+                <div class="timeline-desc">
+                    <ul>
+                        <li>Sales forecasting for new products to optimize restocking decisions, in collaboration with data and supply chain teams.</li>
+                        <li>Development of agentic workflows on <strong>Dify</strong> low-code platform with CI/CD pipelines, Dockerization, and deployment management.</li>
+                        <li>Functional testing of the <strong>Gaia chatbot</strong> in collaboration with the development team.</li>
+                    </ul>
+                    <p style="margin-top:10px; font-size:0.82rem; color:#64748b;"><strong style="color:#94a3b8;">Tech:</strong> Python, Dify, ML, Time Series, SQL, GCP (Vertex AI, BigQuery), GitLab, Prophet Hybrid, XGBoost, LightGBM, Docker, Linux</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-date">March 2025 — September 2025</span>
+                <h3 class="timeline-title">AI Internship — Intelligent Phone Agent</h3>
+                <span class="timeline-org"><img src="images/Orange_logo.png" style="height:16px; vertical-align:middle; margin-right:7px; border-radius:3px; object-fit:contain;">Orange Innovation — Cesson-Sévigné, France</span>
+                <div class="timeline-desc">
+                    <ul>
+                        <li>Developed and integrated an <strong>LLM-based medical phone agent</strong> in a voice system, automating patient interactions and appointment scheduling via advanced prompting.</li>
+                        <li>Measured agent performance on scheduling and constraint management, reaching <strong>88% accuracy</strong>.</li>
+                    </ul>
+                    <p style="margin-top:10px; font-size:0.82rem; color:#64748b;"><strong style="color:#94a3b8;">Tech:</strong> Scrum, Python, Speech-to-Text, Text-to-Speech, LLM, VAPI, Smartly.ai, Node.js</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-date">July 2024 — August 2024</span>
+                <h3 class="timeline-title">ML &amp; AI Internship — Stem Cell Therapy</h3>
+                <span class="timeline-org"><img src="images/talan.png" style="height:16px; vertical-align:middle; margin-right:7px; border-radius:3px; object-fit:contain;">Talan — Tunis, Tunisia</span>
+                <div class="timeline-desc">
+                    <ul>
+                        <li>Designed an ML + RAG pipeline to evaluate iPSC cell health and predict future differentiation with <strong>90% accuracy</strong>.</li>
+                        <li>Multidisciplinary team project — awarded <strong>2nd prize for Best Idea</strong>.</li>
+                    </ul>
+                    <p style="margin-top:10px; font-size:0.82rem; color:#64748b;"><strong style="color:#94a3b8;">Tech:</strong> Python, SVM, KNN, XGBoost, ESM-2 Embedding, RAG, Pinecone</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="resume-section">
+            <div class="section-header">
+                <i class="fas fa-graduation-cap"></i>
+                <h2>Education</h2>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-date">September 2025 — Present</span>
+                <h3 class="timeline-title">Master's 2 in Big Data &amp; AI</h3>
+                <span class="timeline-org">Sup De Vinci — Rennes, France</span>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-date">September 2024 — January 2025</span>
+                <h3 class="timeline-title">University Diploma in Artificial Intelligence in Medicine</h3>
+                <span class="timeline-org">Université de Bourgogne (uB) — Dijon, France</span>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-date">September 2024 — February 2025</span>
+                <h3 class="timeline-title">Exchange Semester — Specialization in E-health</h3>
+                <span class="timeline-org">ESEO — Dijon, France</span>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-date">September 2022 — December 2025</span>
+                <h3 class="timeline-title">Engineering Degree — Computer Science, Data Science</h3>
+                <span class="timeline-org">ESPRIT (Private School of Engineering and Technologies) — Tunis, Tunisia</span>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-date">September 2020 — June 2022</span>
+                <h3 class="timeline-title">Preparatory Cycle — Physics &amp; Chemistry</h3>
+                <span class="timeline-org">IPEIM — Monastir, Tunisia</span>
+            </div>
+        </section>
+
+        <!-- Interests & Hobbies -->
+        <section class="resume-section">
+            <div class="section-header">
+                <i class="fas fa-heart"></i>
+                <h2>Interests &amp; Hobbies</h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+
+                <div style="background: var(--card-bg); border: 1px solid rgba(124,58,237,0.2); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(12px); text-align: center; transition: transform 0.3s, border-color 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.borderColor='rgba(124,58,237,0.5)'" onmouseout="this.style.transform='';this.style.borderColor='rgba(124,58,237,0.2)'">
+                    <div style="font-size: 2rem; margin-bottom: 0.6rem;">🎨</div>
+                    <h4 style="font-family:'Poppins'; color:#c4b5fd; font-size:0.95rem; margin-bottom:0.4rem;">Oil Painting</h4>
+                    <p style="font-size:0.82rem; color:#64748b; line-height:1.6;">Fine arts practice — exploring color, texture, and visual storytelling on canvas.</p>
+                </div>
+
+                <div style="background: var(--card-bg); border: 1px solid rgba(124,58,237,0.2); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(12px); text-align: center; transition: transform 0.3s, border-color 0.3s;" onmouseover="this.style.transform='translateY(-4px)';this.style.borderColor='rgba(6,182,212,0.5)'" onmouseout="this.style.transform='';this.style.borderColor='rgba(124,58,237,0.2)'">
+                    <div style="font-size: 2rem; margin-bottom: 0.6rem;">🤖</div>
+                    <h4 style="font-family:'Poppins'; color:#c4b5fd; font-size:0.95rem; margin-bottom:0.4rem;">AI Club — Graphic Designer</h4>
+                    <p style="font-size:0.82rem; color:#64748b; line-height:1.6;">Lead graphic designer for the university AI club — creating visual identities, event posters, and communication assets.</p>
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- PDF Download -->
+        <section class="resume-section">
+            <div class="pdf-card">
+                <h2>Full Professional CV</h2>
+                <p style="color:#64748b; margin: 0.8rem 0 2rem;">Download the official document with complete details, certifications, and contact information.</p>
+                <a href="images/Yasmine_resume/Yasmine_Amor_portfolio_cv.pdf" download class="download-btn">
+                    <i class="fas fa-cloud-download-alt"></i> Download PDF
+                </a>
+                <div class="preview-window">
+                    <iframe src="images/Yasmine_resume/Yasmine_Amor_portfolio_cv.pdf#toolbar=0" width="100%" height="100%" style="border:none;"></iframe>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer id="footer">
+        <p>Built with love by Yasmine Amor | AI Engineer &amp; Data Scientist</p>
+    </footer>
+
+</div>
+
+<script>
+(function() {
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initStars(); }
+    function initStars() {
+        stars = [];
+        for (let i = 0; i < 200; i++) {
+            stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.3+0.2, alpha: Math.random(), speed: Math.random()*0.008+0.002, dir: Math.random()>0.5?1:-1 });
+        }
+    }
+    function draw() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        stars.forEach(s => {
+            s.alpha += s.speed * s.dir;
+            if (s.alpha>=1||s.alpha<=0) s.dir*=-1;
+            ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+            ctx.fillStyle=`rgba(255,255,255,${s.alpha})`; ctx.fill();
+        });
+        requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize', resize);
+    resize(); draw();
+})();
+</script>
+
+</body>
+</html>

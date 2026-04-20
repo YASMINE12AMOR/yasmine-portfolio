@@ -1,0 +1,452 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Projects | Yasmine Amor</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --accent: #06b6d4;
+            --pink: #ec4899;
+            --bg: #050918;
+            --card-bg: rgba(13, 27, 62, 0.55);
+            --text: #e2e8f0;
+            --glow-purple: rgba(124, 58, 237, 0.6);
+            --glow-cyan: rgba(6, 182, 212, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        #starfield { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+        .nebula { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+        .nebula-1 { width: 500px; height: 500px; background: rgba(124,58,237,0.15); top: -100px; right: -80px; }
+        .nebula-2 { width: 400px; height: 400px; background: rgba(6,182,212,0.10); bottom: 0; left: -80px; }
+
+        .shooting-stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+        .shooting-star { position: absolute; width: 150px; height: 2px; background: linear-gradient(90deg, rgba(255,255,255,0), white); border-radius: 2px; opacity: 0; animation: shoot 6s linear infinite; }
+        .shooting-star:nth-child(1) { top: 10%; left: 30%; animation-delay: 0s;   transform: rotate(-30deg); }
+        .shooting-star:nth-child(2) { top: 25%; left: 70%; animation-delay: 2.5s; transform: rotate(-25deg); }
+        .shooting-star:nth-child(3) { top: 5%;  left: 55%; animation-delay: 4.5s; transform: rotate(-35deg); }
+        @keyframes shoot {
+            0%   { opacity: 0; transform: translateX(0) rotate(-30deg); }
+            10%  { opacity: 1; }
+            60%  { opacity: 0; transform: translateX(400px) rotate(-30deg); }
+            100% { opacity: 0; }
+        }
+
+        /* ── NAVBAR ── */
+        #nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 65px;
+            background: rgba(5, 9, 24, 0.85); backdrop-filter: blur(20px);
+            z-index: 9999; display: flex; justify-content: flex-end; align-items: center; padding: 0 5%;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.3);
+        }
+        #nav ul { display: flex; list-style: none; align-items: center; }
+        #nav ul.links li a { color: #94a3b8; text-decoration: none; padding: 0 18px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.3s; }
+        #nav ul.links li a:hover { color: #fff; }
+        #nav ul.links li.active a { color: var(--accent); text-shadow: 0 0 12px var(--glow-cyan); }
+        #nav ul.icons { margin-left: 20px; border-left: 1px solid rgba(124,58,237,0.3); padding-left: 20px; }
+        #nav ul.icons li a { font-size: 1.1rem; margin-left: 15px; color: #64748b; transition: color 0.3s; }
+        #nav ul.icons li a:hover { color: var(--accent); text-shadow: 0 0 10px var(--glow-cyan); }
+
+        #wrapper { position: relative; z-index: 1; padding-top: 65px; }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            text-align: center; padding: 4rem 20px 3rem;
+            position: relative; overflow: hidden;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+            width: 600px; height: 300px;
+            background: radial-gradient(ellipse, rgba(124,58,237,0.15), transparent 70%);
+            pointer-events: none;
+        }
+        .page-header h1 {
+            font-family: 'Poppins'; font-size: 3.2rem; font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 50%, #06b6d4 100%);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 0.8rem;
+        }
+        .page-header p { color: #64748b; font-size: 1rem; }
+        .header-line { width: 80px; height: 3px; margin: 1rem auto 0; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 2px; }
+
+        /* ── CONTAINER ── */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px 5rem; }
+
+        /* ── SECTION LABEL ── */
+        .section-label {
+            display: flex; align-items: center; gap: 14px;
+            margin: 3rem 0 1.8rem;
+        }
+        .section-label h2 {
+            font-family: 'Poppins'; font-size: 1.3rem; font-weight: 700; color: #c4b5fd;
+        }
+        .section-label::after {
+            content: ''; flex: 1; height: 1px;
+            background: linear-gradient(90deg, rgba(124,58,237,0.4), transparent);
+        }
+
+        /* ── PROJECT GRID ── */
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; }
+
+        /* ── PROJECT CARD ── */
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(124,58,237,0.2);
+            border-radius: 16px; padding: 2rem;
+            display: flex; flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            backdrop-filter: blur(12px);
+            position: relative; overflow: hidden;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 40px rgba(124,58,237,0.25), 0 20px 40px rgba(0,0,0,0.4);
+            border-color: rgba(124,58,237,0.5);
+        }
+        .project-card:hover::before { opacity: 1; }
+
+        .project-card h3 { font-family: 'Poppins'; font-size: 1.05rem; color: var(--accent); margin-bottom: 0.8rem; }
+        .project-card p { font-size: 0.9rem; color: #94a3b8; line-height: 1.7; flex-grow: 1; }
+
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 1.2rem; }
+        .tag {
+            background: rgba(124,58,237,0.12);
+            color: #a78bfa;
+            border: 1px solid rgba(124,58,237,0.25);
+            padding: 3px 10px; border-radius: 20px;
+            font-size: 0.72rem; font-weight: 600;
+        }
+
+        .btn-link {
+            margin-top: 1.2rem; color: var(--accent);
+            text-decoration: none; font-weight: 600; font-size: 0.82rem;
+            display: inline-flex; align-items: center; gap: 6px;
+            transition: text-shadow 0.3s;
+        }
+        .btn-link:hover { text-shadow: 0 0 12px var(--glow-cyan); }
+
+        /* ── FOOTER ── */
+        #footer {
+            position: relative; z-index: 1; text-align: center; padding: 4rem 0;
+            border-top: 1px solid rgba(124,58,237,0.2);
+        }
+        #footer h3 { color: var(--accent); margin-bottom: 0.4rem; text-shadow: 0 0 15px var(--glow-cyan); }
+        #footer a { color: white; font-weight: 600; }
+        .footer-icons { margin-top: 20px; display: flex; justify-content: center; gap: 20px; }
+        .footer-icons a { color: #475569; font-size: 1.5rem; transition: 0.3s; }
+        .footer-icons a:hover { color: var(--accent); text-shadow: 0 0 15px var(--glow-cyan); }
+
+        #navPanelToggle, #navPanel { display: none !important; }
+
+        @media (max-width: 600px) {
+            #nav { justify-content: center; padding: 0; }
+            #nav ul.icons { display: none; }
+            .page-header h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+<div class="nebula nebula-1"></div>
+<div class="nebula nebula-2"></div>
+<div class="shooting-stars">
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+</div>
+
+<div id="wrapper">
+
+    <nav id="nav">
+        <ul class="links">
+            <li><a href="index.html">Bio</a></li>
+            <li class="active"><a href="projects.html">Projects</a></li>
+            <li><a href="cv.html">Resume</a></li>
+            <li><a href="certif.html">Certificates</a></li>
+        </ul>
+        <ul class="icons">
+            <li><a href="https://www.linkedin.com/in/yasmine-amor1/" class="fa-brands fa-linkedin"></a></li>
+            <li><a href="https://github.com/YASMINE12AMOR" class="fa-brands fa-github"></a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header">
+        <h1>Projects &amp; Engineering</h1>
+        <p>AI systems, agentic pipelines, and machine learning solutions</p>
+        <div class="header-line"></div>
+    </div>
+
+    <div class="container">
+
+        <!-- Professional Projects -->
+        <div class="section-label">
+            <h2>Professional AI Projects</h2>
+        </div>
+
+        <div class="project-grid">
+
+            <div class="project-card">
+                <h3><img src="images/groupe_rocher.png" style="height:18px; vertical-align:middle; margin-right:8px; border-radius:3px; object-fit:contain;">Agentic Workflow Platform — Groupe Rocher</h3>
+                <p>Developed agentic workflows on the Dify low-code platform with CI/CD pipelines, Dockerization, and deployment management. Also contributed to functional testing of the Gaia chatbot.</p>
+                <div class="tech-tags">
+                    <span class="tag">Dify</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">GitLab CI/CD</span>
+                    <span class="tag">GCP</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3><img src="images/groupe_rocher.png" style="height:18px; vertical-align:middle; margin-right:8px; border-radius:3px; object-fit:contain;">Sales Forecasting for New Products — Groupe Rocher</h3>
+                <p>Built ML models to forecast sales of new products to optimize restocking decisions in collaboration with data and supply chain teams. Used time series models on Google Cloud Platform.</p>
+                <div class="tech-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Time Series</span>
+                    <span class="tag">Prophet Hybrid</span>
+                    <span class="tag">XGBoost</span>
+                    <span class="tag">BigQuery</span>
+                    <span class="tag">Vertex AI</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3><img src="images/Orange_logo.png" style="height:18px; vertical-align:middle; margin-right:8px; border-radius:3px; object-fit:contain;">Intelligent Medical Phone Agent — Orange Innovation</h3>
+                <p>Developed and integrated an LLM-based medical phone agent in a voice system, automating patient interactions and appointment scheduling via advanced prompting. Reached <strong style="color:#e2e8f0;">88% accuracy</strong>.</p>
+                <div class="tech-tags">
+                    <span class="tag">LLM</span>
+                    <span class="tag">VAPI</span>
+                    <span class="tag">Speech-to-Text</span>
+                    <span class="tag">Text-to-Speech</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">Smartly.ai</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3><img src="images/talan.png" style="height:18px; vertical-align:middle; margin-right:8px; border-radius:3px; object-fit:contain;">Stem Cell Therapy Pipeline — Talan</h3>
+                <p>Designed an innovative ML + RAG pipeline to evaluate iPSC cell health and predict future differentiation with <strong style="color:#e2e8f0;">90% accuracy</strong>. Awarded 2nd prize for Best Idea in a multidisciplinary team.</p>
+                <div class="tech-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">SVM</span>
+                    <span class="tag">XGBoost</span>
+                    <span class="tag">RAG</span>
+                    <span class="tag">ESM-2 Embedding</span>
+                    <span class="tag">Pinecone</span>
+                </div>
+                <a href="images/succ/article_stem_cells.pdf" target="_blank" class="btn-link"><i class="fas fa-file-alt"></i> Read Scientific Article</a>
+            </div>
+
+        </div>
+
+        <!-- Personal / Hackathon Projects -->
+        <div class="section-label" style="margin-top: 3.5rem;">
+            <h2>Hackathons &amp; Academic Projects</h2>
+        </div>
+
+        <div class="project-grid">
+
+            <div class="project-card" style="border-color: rgba(6,182,212,0.45); box-shadow: 0 0 28px rgba(6,182,212,0.12);">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:0.8rem;">
+                    <span style="background: linear-gradient(135deg, #06b6d4, #7c3aed); color:#fff; font-size:0.68rem; font-weight:700; padding:3px 10px; border-radius:20px; letter-spacing:1px; text-transform:uppercase;">Current Project</span>
+                </div>
+                <h3>Real-Time Urban Congestion Prediction Pipeline</h3>
+                <p>Designed and implemented a real-time data pipeline aggregating <strong style="color:#e2e8f0;">traffic and weather data</strong> to predict urban congestion peaks based on weather conditions. Built a scalable cloud architecture with automated orchestration and a full <strong style="color:#e2e8f0;">CI/CD pipeline</strong> for continuous delivery and monitoring.</p>
+                <div class="tech-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">AWS</span>
+                    <span class="tag">Airflow</span>
+                    <span class="tag">Kedro</span>
+                    <span class="tag">MinIO</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">Grafana</span>
+                    <span class="tag">GitLab CI/CD</span>
+                    <span class="tag">APIs</span>
+                    <span class="tag">Machine Learning</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="padding:0; overflow:hidden;">
+                <img src="images/flash_apply.png" alt="FlashApply" style="width:100%; height:180px; object-fit:cover; display:block; opacity:0.85; transition:opacity 0.3s;">
+                <div style="padding:2rem; display:flex; flex-direction:column; flex-grow:1;">
+                <h3>FlashApply — Intelligent CV Customization</h3>
+                <p>Built at HackEurope (CentraleSupélec, Paris). Sequential multi-agent architecture for CV extraction, job offer analysis, match score calculation, and optimized CV generation — achieving <strong style="color:#e2e8f0;">60% match rate</strong>.</p>
+                <div class="tech-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">LangChain</span>
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">Streamlit</span>
+                    <span class="tag">LLM</span>
+                    <span class="tag">OCR</span>
+                    <span class="tag">Stripe</span>
+                </div>
+                <a href="https://github.com/YASMINE12AMOR/FlashApply" target="_blank" class="btn-link">GitHub <i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" style="padding:0; overflow:hidden;">
+                <img src="images/trade_app.png" alt="Trading System" style="width:100%; height:180px; object-fit:cover; display:block; opacity:0.85; transition:opacity 0.3s;">
+                <div style="padding:2rem; display:flex; flex-direction:column; flex-grow:1;">
+                <h3>GBP/USD Trading Decision System</h3>
+                <p>Decision system for GBP/USD currency pair trading using Machine Learning and Reinforcement Learning. The PPO model achieved a final equity of <strong style="color:#e2e8f0;">3.32</strong> — a winning strategy (equity > 2).</p>
+                <div class="tech-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">PPO</span>
+                    <span class="tag">Random Forest</span>
+                    <span class="tag">Scikit-learn</span>
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">Streamlit</span>
+                </div>
+                <a href="https://github.com/YASMINE12AMOR/Trading_RL_USD_GBP_market" target="_blank" class="btn-link">GitHub <i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" style="padding:0; overflow:hidden;">
+                <img src="images/financi_statement.JPG" alt="Financial Statement Automation" style="width:100%; height:180px; object-fit:cover; display:block; opacity:0.85; transition:opacity 0.3s;">
+                <div style="padding:2rem; display:flex; flex-direction:column; flex-grow:1;">
+                <h3>Deep Learning — Financial Statement Automation</h3>
+                <p>Trained an OCR model to extract text from borderless tables in PDFs and images. Built an NLP model to standardize financial statements from <strong style="color:#e2e8f0;">1000 documents</strong> and analyzed company net results with Power BI.</p>
+                <div class="tech-tags">
+                    <span class="tag">PaddleOCR</span>
+                    <span class="tag">TensorFlow</span>
+                    <span class="tag">LLAMA3</span>
+                    <span class="tag">Hugging Face</span>
+                    <span class="tag">Semantic Search</span>
+                    <span class="tag">Power BI</span>
+                </div>
+                <a href="https://drive.google.com/file/d/1OXvfCxz_Bq2m9OVOG9YPQjB5hfxrmDkG/view?usp=sharing" target="_blank" class="btn-link">View Demo <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>NLP & LLM Interactive Applications</h3>
+                <p>A collection of 6 Streamlit apps showcasing core NLP concepts: <strong style="color:#e2e8f0;">Codenames AI</strong> (semantic clue generation with SentenceTransformer), <strong style="color:#e2e8f0;">Cemantik</strong> (semantic similarity guessing game), <strong style="color:#e2e8f0;">BERT Encoder</strong> (accounting term classifier with CamembertModel), <strong style="color:#e2e8f0;">GPT Decoder</strong> (Mistral-powered Q&A, summarization & code generation), and a <strong style="color:#e2e8f0;">RAG Pipeline</strong> with FAISS indexing for contextualized recommendations.</p>
+                <div class="tech-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Streamlit</span>
+                    <span class="tag">Hugging Face</span>
+                    <span class="tag">CamembertModel</span>
+                    <span class="tag">SentenceTransformer</span>
+                    <span class="tag">Mistral AI</span>
+                    <span class="tag">FAISS</span>
+                    <span class="tag">RAG</span>
+                </div>
+                <a href="https://github.com/YASMINE12AMOR/Projets-LLM-NLP-" target="_blank" class="btn-link">GitHub <i class="fab fa-github"></i></a>
+            </div>
+
+            <div class="project-card" style="padding:0; overflow:hidden;">
+                <img src="images/object_detection.png" alt="Object Detection" style="width:100%; height:180px; object-fit:cover; display:block; opacity:0.85; transition:opacity 0.3s;">
+                <div style="padding:2rem; display:flex; flex-direction:column; flex-grow:1;">
+                <h3>Computer Vision — Object Detection in Satellite Images</h3>
+                <p>Implemented a CNN model for detection and classification of objects in satellite images, reaching <strong style="color:#e2e8f0;">98% accuracy</strong>. Used ResNet-50 and Mask R-CNN architectures for precise object segmentation.</p>
+                <div class="tech-tags">
+                    <span class="tag">Keras</span>
+                    <span class="tag">PyTorch</span>
+                    <span class="tag">ResNet-50</span>
+                    <span class="tag">Mask R-CNN</span>
+                </div>
+                <a href="https://github.com/YASMINE12AMOR/Deep_learning_project" target="_blank" class="btn-link">GitHub <i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" style="padding:0; overflow:hidden;">
+                <img src="images/Intrusion_detection.png" alt="Intrusion Detection System" style="width:100%; height:180px; object-fit:cover; display:block; opacity:0.85; transition:opacity 0.3s;">
+                <div style="padding:2rem; display:flex; flex-direction:column; flex-grow:1;">
+                <h3>Machine Learning — Intrusion Detection System</h3>
+                <p>Trained and compared supervised and unsupervised ML models for malicious activity detection, reaching a <strong style="color:#e2e8f0;">98% success rate</strong> with Random Forest. Applied at ESPRIT, Tunis.</p>
+                <div class="tech-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Scikit-learn</span>
+                    <span class="tag">Random Forest</span>
+                    <span class="tag">XGBoost</span>
+                    <span class="tag">KNN</span>
+                    <span class="tag">SVM</span>
+                    <span class="tag">KMeans</span>
+                    <span class="tag">GMM</span>
+                </div>
+                <a href="https://github.com/YASMINE12AMOR/Intrusion_Detection_System" target="_blank" class="btn-link">GitHub <i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" style="padding:0; overflow:hidden;">
+                <img src="images/game preview.png" alt="AI Awareness Hospital Game" style="width:100%; height:180px; object-fit:cover; display:block; opacity:0.85; transition:opacity 0.3s;">
+                <div style="padding:2rem; display:flex; flex-direction:column; flex-grow:1;">
+                <h3>AI Awareness Hospital Game — Inclusive Design</h3>
+                <p>Interactive hospital game designed to raise awareness about the <strong style="color:#e2e8f0;">limitations of AI in medical diagnosis</strong> and the importance of human judgement. Features medical puzzles with all elements explained in <strong style="color:#e2e8f0;">sign language</strong> for deaf children, and visual supports adapted for <strong style="color:#e2e8f0;">autistic children</strong>. Integrated a physical Thymio robot for hands-on AI interaction.</p>
+                <div class="tech-tags">
+                    <span class="tag">Unity</span>
+                    <span class="tag">C#</span>
+                    <span class="tag">ASEBA</span>
+                    <span class="tag">Thymio AI</span>
+                    <span class="tag">Adobe Illustrator</span>
+                    <span class="tag">Generative AI</span>
+                </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer id="footer">
+        <h3>Let's Build Something Intelligent</h3>
+        <p style="color:#64748b; margin-top:0.4rem;">Reach out: <a href="mailto:yasmine.amor120@gmail.com">yasmine.amor120@gmail.com</a></p>
+        <div class="footer-icons">
+            <a href="https://www.linkedin.com/in/yasmine-amor1/"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/YASMINE12AMOR"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </footer>
+
+</div>
+
+<script>
+(function() {
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initStars(); }
+    function initStars() {
+        stars = [];
+        for (let i = 0; i < 200; i++) {
+            stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.3+0.2, alpha: Math.random(), speed: Math.random()*0.008+0.002, dir: Math.random()>0.5?1:-1 });
+        }
+    }
+    function draw() {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        stars.forEach(s => {
+            s.alpha += s.speed * s.dir;
+            if (s.alpha>=1||s.alpha<=0) s.dir*=-1;
+            ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+            ctx.fillStyle=`rgba(255,255,255,${s.alpha})`; ctx.fill();
+        });
+        requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize', resize);
+    resize(); draw();
+})();
+</script>
+
+</body>
+</html>
